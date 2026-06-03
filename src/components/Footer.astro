@@ -4,11 +4,31 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <p>© {year} AffiliateBlog. Alle Rechte vorbehalten.</p>
+    <a href="/" class="footer-logo" aria-label="CashKompass – Startseite">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" stroke="#fff" stroke-width="1.5" opacity="0.2"/>
+        <path d="M16 3 L18.5 16 L16 13.5 L13.5 16 Z" fill="#F5A623"/>
+        <path d="M16 29 L13.5 16 L16 18.5 L18.5 16 Z" fill="#fff" opacity="0.5"/>
+        <circle cx="16" cy="16" r="2.5" fill="#fff" opacity="0.6"/>
+        <circle cx="16" cy="16" r="1.2" fill="#F5A623"/>
+      </svg>
+      Cash<span style="color: var(--gold-400);">Kompass</span>
+    </a>
+
+    <p class="footer-copy">© {year} CashKompass. Alle Rechte vorbehalten.</p>
+
     <ul class="footer-links">
       <li><a href="/datenschutz">Datenschutz</a></li>
       <li><a href="/impressum">Impressum</a></li>
       <li><a href="/affiliate-hinweis">Affiliate-Hinweis</a></li>
     </ul>
+  </div>
+
+  <div class="container">
+    <p class="footer-disclaimer">
+      * Diese Seite enthält Affiliate-Links. Wenn du über einen unserer Links ein Konto erstellst,
+      erhalten wir eine Provision – für dich entstehen keine Mehrkosten.
+      Alle Reviews basieren auf eigenen Testerfahrungen. Verdienstangaben sind Richtwerte ohne Garantie.
+    </p>
   </div>
 </footer>
