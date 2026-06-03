@@ -1,0 +1,55 @@
+---
+import AffiliateLink from './AffiliateLink.astro';
+
+interface AppRow {
+  name: string;
+  slug: string;          // review slug → /reviews/[slug]
+  affiliateSlug: string; // affiliate slug → /go/[slug]
+  rating: number;        // 1–5
+  minPayout: string;
+  payoutTime: string;
+  platform: string;
+  specialty: string;
+}
+interface Props {
+  apps: AppRow[];
+}
+const { apps } = Astro.props;
+---
+
+<div class="comparison-table-wrap" role="region" aria-label="App-Vergleich">
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th scope="col">App</th>
+        <th scope="col">Bewertung</th>
+        <th scope="col">Min. Auszahlung</th>
+        <th scope="col">Auszahlungszeit</th>
+        <th scope="col">Plattform</th>
+        <th scope="col">Stärke</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {apps.map((app) => (
+        <tr>
+          <td>
+            <a href={`/reviews/${app.slug}`} class="comparison-table__name">{app.name}</a>
+          </td>
+          <td>
+            <span class="comparison-table__rating">{app.rating}/5</span>
+          </td>
+          <td>{app.minPayout}</td>
+          <td>{app.payoutTime}</td>
+          <td>{app.platform}</td>
+          <td>{app.specialty}</td>
+          <td>
+            <AffiliateLink slug={app.affiliateSlug}>
+              Testen
+            </AffiliateLink>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

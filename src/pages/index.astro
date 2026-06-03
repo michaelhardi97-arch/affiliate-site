@@ -13,11 +13,28 @@ const blogPosts = (await getCollection('blog'))
   .slice(0, 3);
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
+
+const siteUrl = Astro.site?.href?.replace(/\/$/, '') ?? 'https://affiliate-site.michaelhardi97.workers.dev';
+const globalSchemas = [
+  {
+    '@type': 'Organization',
+    name: 'CashKompass',
+    url: siteUrl,
+    description: 'Unabhängige Reviews und Guides zu Reward-Apps und seriösem Nebenverdienst',
+  },
+  {
+    '@type': 'WebSite',
+    name: 'CashKompass',
+    url: siteUrl,
+    description: 'Dein Kompass für seriösen Nebenverdienst',
+  },
+];
 ---
 
 <BaseLayout
   title="CashKompass – Dein Kompass für seriösen Nebenverdienst"
   description="CashKompass testet und bewertet die besten Reward-Apps. Ehrliche Reviews zu FreeCash, Swagbucks und BigCash – mit konkreten Zahlen zu Verdienst und Auszahlung."
+  schema={globalSchemas}
 >
   <!-- ── Hero ──────────────────────────────────────── -->
   <section class="hero">

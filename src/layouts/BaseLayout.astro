@@ -6,6 +6,9 @@ import LeftSkyscraper from '../components/ads/LeftSkyscraper.astro';
 import RightSkyscraper from '../components/ads/RightSkyscraper.astro';
 import '../styles/global.css';
 
+const SITE_NAME = 'CashKompass';
+const SITE_URL = Astro.site?.href?.replace(/\/$/, '') ?? 'https://affiliate-site.michaelhardi97.workers.dev';
+
 interface Props {
   title: string;
   description: string;
@@ -14,7 +17,8 @@ interface Props {
   canonicalURL?: string;
   pubDate?: Date;
   author?: string;
-  schema?: Record<string, unknown>;
+  /** Single JSON-LD object or array → rendered as @graph if array */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -28,7 +32,14 @@ const {
   schema,
 } = Astro.props;
 
-const ogImage = new URL(image, Astro.site ?? 'https://affiliate-site.michaelhardi97.workers.dev').href;
+const ogImage = new URL(image, SITE_URL).href;
+
+// Wrap array in @graph, keep single objects as-is
+const schemaBlock = schema
+  ? (Array.isArray(schema)
+      ? { '@context': 'https://schema.org', '@graph': schema }
+      : schema)
+  : null;
 ---
 
 <!doctype html>
@@ -44,6 +55,7 @@ const ogImage = new URL(image, Astro.site ?? 'https://affiliate-site.michaelhard
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -64,8 +76,8 @@ const ogImage = new URL(image, Astro.site ?? 'https://affiliate-site.michaelhard
       <meta property="article:author" content={author} />
     )}
 
-    {schema && (
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {schemaBlock && (
+      <script type="application/ld+json" set:html={JSON.stringify(schemaBlock)} />
     )}
 
     <script defer src="https://cloud.umami.is/script.js" data-website-id="bf5f73d5-9c85-4fca-9d5c-4cf0d6d9ee3f"></script>

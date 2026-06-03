@@ -1,7 +1,10 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import SidebarAd from '../components/ads/SidebarAd.astro';
 import InContentAd from '../components/ads/InContentAd.astro';
+
+const SITE_URL = Astro.site?.href?.replace(/\/$/, '') ?? 'https://affiliate-site.michaelhardi97.workers.dev';
 
 interface Props {
   title: string;
@@ -17,6 +20,16 @@ interface Props {
 const { title, description, pubDate, updatedDate, author, image, imageAlt, tags } = Astro.props;
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE_URL + '/blog' },
+    { '@type': 'ListItem', position: 3, name: title },
+  ],
+};
 ---
 
 <BaseLayout
@@ -26,8 +39,15 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
   type="article"
   pubDate={pubDate}
   author={author}
+  schema={breadcrumbSchema}
 >
   <div class="container">
+    <Breadcrumb items={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Blog', href: '/blog' },
+      { label: title },
+    ]} />
+
     <div class="content-grid">
       <article>
         <header class="article-header">
@@ -59,13 +79,13 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
       <aside class="sidebar">
         <SidebarAd />
         <div class="sidebar-widget">
-          <div class="sidebar-widget-title">Newsletter</div>
+          <div class="sidebar-widget-title">Mehr entdecken</div>
           <div class="sidebar-widget-body">
             <p style="font-size:0.875rem;color:var(--color-text-muted);margin-bottom:0.75rem;">
-              Keine Empfehlung verpassen. Jetzt abonnieren.
+              Alle Reviews und Vergleiche auf einen Blick.
             </p>
-            <a href="#newsletter" class="affiliate-link" style="width:100%;justify-content:center;">
-              Abonnieren
+            <a href="/reviews" class="affiliate-link" style="width:100%;justify-content:center;text-decoration:none;">
+              Zu den Reviews
             </a>
           </div>
         </div>

@@ -1,0 +1,46 @@
+---
+interface RatingCategory {
+  label: string;
+  score: number; // 1–5
+}
+interface Props {
+  providerName: string;
+  overall: number;
+  categories: RatingCategory[];
+}
+const { providerName, overall, categories } = Astro.props;
+
+// Lesbares Label für den Score
+function scoreLabel(n: number): string {
+  if (n >= 4.5) return 'Sehr gut';
+  if (n >= 3.5) return 'Gut';
+  if (n >= 2.5) return 'Befriedigend';
+  if (n >= 1.5) return 'Ausreichend';
+  return 'Mangelhaft';
+}
+---
+
+<div class="rating-box" role="region" aria-label={`Bewertung ${providerName}`}>
+  <div class="rating-box__header">
+    <span class="rating-box__name">{providerName}</span>
+    <span class="rating-box__overall">{overall.toFixed(1)}</span>
+    <span class="rating-box__label">{scoreLabel(overall)}</span>
+  </div>
+  <div class="rating-box__bar-wrap">
+    {overall / 5 * 100}%
+    <div class="rating-box__bar">
+      <div class="rating-box__bar-fill" style={`width:${(overall / 5) * 100}%`} aria-hidden="true"></div>
+    </div>
+  </div>
+  <ul class="rating-box__cats">
+    {categories.map((cat) => (
+      <li class="rating-box__cat">
+        <span class="rating-box__cat-label">{cat.label}</span>
+        <div class="rating-box__cat-bar">
+          <div class="rating-box__cat-fill" style={`width:${(cat.score / 5) * 100}%`} aria-hidden="true"></div>
+        </div>
+        <span class="rating-box__cat-score">{cat.score}/5</span>
+      </li>
+    ))}
+  </ul>
+</div>

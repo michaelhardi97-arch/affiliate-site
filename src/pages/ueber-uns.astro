@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Über uns – CashKompass"
+  description="Wer hinter CashKompass steckt, warum wir diese Seite betreiben und wie wir mit Affiliate-Links umgehen."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Über CashKompass</h1>
+      <p>Wer hinter dieser Seite steckt und warum wir sie betreiben.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding: 3rem 1.25rem; max-width: 760px;">
+    <div class="prose">
+
+      <h2>Unser Ziel</h2>
+      <p>
+        CashKompass ist ein unabhängiger Ratgeber rund um Reward-Apps und seriöse Wege,
+        online ein kleines Zubrot zu verdienen. Wir testen Plattformen wie FreeCash, Swagbucks
+        und BigCash selbst, prüfen faktische Angaben gegen offizielle Quellen und erklären
+        ehrlich, was realistisch verdienbar ist – ohne übertriebene Versprechen.
+      </p>
+      <p>
+        Der Name ist Programm: Wir wollen Orientierung geben, nicht blind weiterleiten.
+      </p>
+
+      <h2>Wer wir sind</h2>
+      <p>
+        <!-- TODO: Kurze persönliche Vorstellung einfügen -->
+        CashKompass wird von einer Einzelperson betrieben, die selbst Reward-Apps getestet
+        hat und die Erfahrungen transparent teilen möchte. Alle Reviews basieren auf eigener
+        Nutzung oder auf verifizierten Quellen (offizielle Hilfeseiten, aktuelle Nutzerdaten).
+      </p>
+
+      <h2>Transparenz bei Affiliate-Links</h2>
+      <p>
+        Diese Website enthält Affiliate-Links: Wenn du über einen unserer Links eine App
+        ausprobierst oder dich anmeldest, erhalten wir eine Provision vom jeweiligen Anbieter.
+        <strong>Für dich entstehen dadurch keine Mehrkosten.</strong>
+      </p>
+      <p>
+        Affiliate-Kooperationen beeinflussen unsere Bewertungen nicht. Jede Review enthält
+        sowohl Vorteile als auch Nachteile, und wir empfehlen nur Plattformen, die wir als
+        seriös einschätzen. Alle Links sind mit <code>rel="sponsored nofollow"</code> ausgezeichnet.
+      </p>
+
+      <h2>Wie wir bewerten</h2>
+      <p>
+        Mehr dazu, wie wir Reward-Apps testen und nach welchen Kriterien wir urteilen,
+        findest du auf unserer Seite <a href="/wie-wir-testen">Wie wir testen</a>.
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Fragen, Korrekturen oder Kooperationsanfragen? Die Kontaktdaten findest du im
+        <a href="/impressum">Impressum</a>.
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: .6rem;
+    color: var(--navy-800);
+  }
+  .prose p, .prose li {
+    color: var(--gray-700);
+    font-size: .95rem;
+    line-height: 1.75;
+  }
+  .prose code {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: .1rem .4rem;
+    font-size: .85em;
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Wie wir testen – CashKompass"
+  description="Unsere Testmethodik: Welche Kriterien wir bei Reward-App-Reviews anlegen, wie wir Fakten prüfen und wann wir Inhalte aktualisieren."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Wie wir testen</h1>
+      <p>Unsere Bewertungskriterien und unser Rechercheprozess.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding: 3rem 1.25rem; max-width: 760px;">
+    <div class="prose">
+
+      <h2>Bewertungskriterien</h2>
+      <p>
+        Jede Reward-App bewerten wir nach denselben vier Kategorien:
+      </p>
+      <ul>
+        <li><strong>Auszahlung:</strong> Mindestbetrag, Methoden, Gebühren, Bearbeitungszeit.</li>
+        <li><strong>Verdienstpotenzial:</strong> Realistische Einnahmen pro Stunde und Monat – ohne Hochrechnungen auf Ausnahmefälle.</li>
+        <li><strong>Benutzerfreundlichkeit:</strong> Registrierung, App-Qualität, Angebotsvielfalt, Support.</li>
+        <li><strong>Vertrauenswürdigkeit:</strong> Unternehmensalter, Nutzerzahlen, Trustpilot-Score, nachweisliche Auszahlungen.</li>
+      </ul>
+
+      <h2>Rechercheprozess</h2>
+      <p>
+        Faktische Angaben – Mindestauszahlungsbeträge, Gebühren, Bearbeitungszeiten – prüfen
+        wir gegen die offiziellen Hilfeseiten der jeweiligen Anbieter. Werte, die nicht
+        öffentlich belegbar sind, kennzeichnen wir als Schätzung oder lassen sie weg.
+      </p>
+      <p>
+        Wir nutzen die Plattformen aktiv, bevor wir sie empfehlen. Eigene
+        Auszahlungserfahrungen fließen in die Bewertung ein.
+      </p>
+
+      <h2>Keine übertriebenen Versprechen</h2>
+      <p>
+        Reward-Apps ermöglichen kein ernsthaftes Nebeneinkommen. Wir nennen
+        realistische Monatsverdienste, weisen auf Einschränkungen hin und vermeiden
+        Formulierungen wie „mühelos verdienen" oder „passives Einkommen".
+      </p>
+
+      <h2>Aktualisierungen</h2>
+      <p>
+        Jede Review enthält ein „Stand: [Monat Jahr]"-Datum. Ändert ein Anbieter
+        Konditionen (Mindestauszahlung, Gebühren etc.), aktualisieren wir den Beitrag
+        und passen das Datum an. Lesende können Korrekturen über das Impressum melden.
+      </p>
+
+      <h2>Affiliate-Transparenz</h2>
+      <p>
+        Ob eine App Affiliate-Provisionen zahlt oder nicht, hat keinen Einfluss auf
+        Bewertung oder Platzierung. Nicht-affiliate Apps werden gleichwertig besprochen.
+        Mehr dazu auf unserer <a href="/ueber-uns">Über-uns-Seite</a>.
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: .6rem;
+    color: var(--navy-800);
+  }
+  .prose p, .prose li {
+    color: var(--gray-700);
+    font-size: .95rem;
+    line-height: 1.75;
+  }
+  .prose ul { margin-bottom: 1rem; }
+</style>

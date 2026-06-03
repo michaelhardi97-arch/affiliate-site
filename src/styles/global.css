@@ -669,3 +669,126 @@ main { flex: 1; }
   position: sticky;
   top: 88px;             /* Höhe des sticky Headers + etwas Luft */
 }
+
+/* ── Breadcrumb ──────────────────────────────────────── */
+.breadcrumb {
+  padding: .75rem 0 0;
+  margin-bottom: .25rem;
+}
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  list-style: none;
+  padding: 0;
+  font-size: .8rem;
+  color: var(--color-text-muted);
+  align-items: center;
+}
+.breadcrumb__item + .breadcrumb__item::before {
+  content: '/';
+  color: var(--gray-300);
+  margin-right: .5rem;
+}
+.breadcrumb__link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+.breadcrumb__link:hover { color: var(--color-primary); text-decoration: underline; }
+.breadcrumb__current { color: var(--gray-500); }
+
+/* ── Affiliate Disclosure ────────────────────────────── */
+.affiliate-disclosure {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  background: var(--navy-50);
+  border: 1px solid var(--navy-100);
+  border-left: 3px solid var(--navy-800);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: .75rem 1rem;
+  margin-bottom: 1.75rem;
+  font-size: .85rem;
+  color: var(--gray-700);
+}
+.affiliate-disclosure svg { flex-shrink: 0; margin-top: .1rem; color: var(--navy-800); }
+.affiliate-disclosure p { margin: 0; }
+.affiliate-disclosure a { color: var(--color-primary); }
+
+/* ── ProsCons ────────────────────────────────────────── */
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+@media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } }
+.pros-cons__col {
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.pros-cons__col--pros { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.pros-cons__col--cons { background: #fef2f2; border: 1px solid #fecaca; }
+.pros-cons__heading {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .95rem;
+  margin-top: 0;
+  margin-bottom: .75rem;
+}
+.pros-cons__heading--pros { color: #15803d; }
+.pros-cons__heading--cons { color: #dc2626; }
+.pros-cons__list {
+  padding-left: 1.1rem;
+  margin: 0;
+  font-size: .875rem;
+  color: var(--gray-700);
+}
+
+/* ── RatingBox ───────────────────────────────────────── */
+.rating-box {
+  background: var(--navy-50);
+  border: 1px solid var(--navy-100);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.rating-box__header {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin-bottom: .75rem;
+  flex-wrap: wrap;
+}
+.rating-box__name { font-weight: 800; font-size: 1.1rem; }
+.rating-box__overall {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--navy-800);
+  line-height: 1;
+}
+.rating-box__label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--gold-600);
+  background: var(--gold-100);
+  padding: .15rem .6rem;
+  border-radius: 999px;
+}
+.rating-box__bar-wrap { display: none; } /* handled per-cat */
+.rating-box__cats { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .6rem; }
+.rating-box__cat { display: grid; grid-template-columns: 140px 1fr 36px; align-items: center; gap: .6rem; font-size: .875rem; }
+.rating-box__cat-label { color: var(--gray-700); }
+.rating-box__cat-bar { height: 8px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.rating-box__cat-fill { height: 100%; background: linear-gradient(90deg, var(--navy-700), var(--gold-500)); border-radius: 999px; transition: width .3s; }
+.rating-box__cat-score { font-weight: 700; font-size: .8rem; color: var(--navy-800); text-align: right; }
+
+/* ── ComparisonTable ─────────────────────────────────── */
+.comparison-table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+.comparison-table { min-width: 600px; }
+.comparison-table th { font-size: .8rem; padding: .6rem .875rem; }
+.comparison-table td { font-size: .875rem; padding: .6rem .875rem; vertical-align: middle; }
+.comparison-table__name { font-weight: 700; color: var(--navy-800); text-decoration: none; }
+.comparison-table__name:hover { color: var(--gold-600); text-decoration: underline; }
+.comparison-table__rating { font-weight: 700; }
