@@ -1,0 +1,123 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AffiliateLink from '../components/AffiliateLink.astro';
+import Rating from '../components/Rating.astro';
+import SidebarAd from '../components/ads/SidebarAd.astro';
+import InContentAd from '../components/ads/InContentAd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author?: string;
+  image?: string;
+  imageAlt?: string;
+  tags?: string[];
+  providerName: string;
+  rating: number;
+  bonus: string;
+  category: 'cs2' | 'casino' | 'reward-apps';
+  affiliateSlug: string;
+}
+
+const {
+  title, description, pubDate, updatedDate, author, image, imageAlt, tags,
+  providerName, rating, bonus, category, affiliateSlug,
+} = Astro.props;
+
+const categoryLabel: Record<string, string> = {
+  'cs2': 'CS2',
+  'casino': 'Casino',
+  'reward-apps': 'Reward-App',
+};
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  pubDate={pubDate}
+  author={author}
+>
+  <div class="container">
+    <div class="content-grid">
+      <article>
+        <!-- Review-Header -->
+        <header class="review-header">
+          <div class="review-header__top">
+            <span class:list={['category-badge', `category-badge--${category}`]}>
+              {categoryLabel[category]}
+            </span>
+            <div class="article-meta">
+              {author && <span>von {author}</span>}
+              <time datetime={pubDate.toISOString()}>{dateFormatter.format(pubDate)}</time>
+              {updatedDate && (
+                <span>Aktualisiert: <time datetime={updatedDate.toISOString()}>{dateFormatter.format(updatedDate)}</time></span>
+              )}
+            </div>
+          </div>
+
+          <h1>{title}</h1>
+
+          <div class="review-meta-box">
+            <div class="review-meta-box__provider">{providerName}</div>
+            <div class="review-meta-box__rating">
+              <Rating value={rating} />
+            </div>
+            <div class="review-meta-box__bonus">
+              <span class="bonus-label">Bonus</span>
+              <span class="bonus-value">{bonus}</span>
+            </div>
+            <AffiliateLink slug={affiliateSlug} size="large">
+              Jetzt zu {providerName}
+            </AffiliateLink>
+          </div>
+
+          {tags && tags.length > 0 && (
+            <ul class="tag-list">
+              {tags.map((tag) => <li><span class="tag">{tag}</span></li>)}
+            </ul>
+          )}
+        </header>
+
+        <!-- Artikel-Inhalt -->
+        <div class="article-body">
+          <slot />
+          <InContentAd />
+        </div>
+
+        <!-- CTA am Ende -->
+        <div class="review-cta">
+          <p class="review-cta__provider">{providerName}</p>
+          <p class="review-cta__bonus">{bonus}</p>
+          <Rating value={rating} />
+          <AffiliateLink slug={affiliateSlug} size="large">
+            Jetzt zu {providerName} &rarr;
+          </AffiliateLink>
+          <p class="review-cta__disclaimer">
+            * Affiliate-Link. Es gelten die AGB des Anbieters. Gluecksspiel kann suechtig machen.
+          </p>
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <SidebarAd />
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-title">Schnellbewertung</div>
+          <div class="sidebar-widget-body">
+            <p style="font-weight:700;margin-bottom:0.35rem;">{providerName}</p>
+            <Rating value={rating} />
+            <p style="font-size:0.85rem;color:var(--color-text-muted);margin:0.75rem 0 1rem;">
+              {bonus}
+            </p>
+            <AffiliateLink slug={affiliateSlug} label={`Zu ${providerName}`} />
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

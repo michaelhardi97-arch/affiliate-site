@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
+---
+
+<BaseLayout
+  title="AffiliateBlog – Ehrliche Produktempfehlungen"
+  description="Unabhängige Tests und Empfehlungen für Technik, Gadgets und mehr. Finde das beste Produkt für deinen Bedarf."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Ehrliche Produktempfehlungen</h1>
+      <p>Wir testen, vergleichen und empfehlen – damit du die richtige Kaufentscheidung triffst.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding-top:2.5rem;padding-bottom:3rem;">
+    <h2 style="margin-bottom:1.5rem;margin-top:0;">Neueste Artikel</h2>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <article class="card">
+          <div class="card-body">
+            {post.data.tags && (
+              <ul class="tag-list" style="margin-bottom:0.5rem;">
+                {post.data.tags.slice(0, 2).map((tag) => (
+                  <li><span class="tag">{tag}</span></li>
+                ))}
+              </ul>
+            )}
+            <h3 class="card-title">
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h3>
+            <p class="card-description">{post.data.description}</p>
+            <div class="card-meta">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFormatter.format(post.data.pubDate)}
+              </time>
+              {post.data.author && <span> · {post.data.author}</span>}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

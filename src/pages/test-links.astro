@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateLink from '../components/AffiliateLink.astro';
+import { affiliateLinks } from '../data/links.js';
+
+const rewardApps = affiliateLinks.filter((l) => l.category === 'reward-apps');
+---
+
+<BaseLayout
+  title="Link-Tracking Test – AffiliateBlog"
+  description="Testseite für Affiliate-Link-Tracking"
+>
+  <div class="container" style="padding: 3rem 1.25rem;">
+    <div style="max-width: 680px; margin: 0 auto;">
+
+      <h1 style="margin-bottom: 0.5rem;">Affiliate-Link Tracking Test</h1>
+      <p style="color: var(--color-text-muted); margin-bottom: 0.5rem;">
+        Klick auf einen Button → Weiterleitung über <code>/go/[slug]</code> → Ziel-URL.
+      </p>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 2.5rem;">
+        Jeder Klick erzeugt einen Pageview in Umami für die entsprechende
+        <code>/go/…</code>-URL und feuert zusätzlich das Custom-Event
+        <code>affiliate-click</code>.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        {rewardApps.map((link) => (
+          <div style="border: 1px solid var(--color-border); border-radius: 0.5rem; padding: 1.25rem 1.5rem; background: var(--color-bg);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+              <div>
+                <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem;">{link.name}</p>
+                <code style="font-size: 0.78rem; color: var(--color-text-muted);">/go/{link.slug}</code>
+              </div>
+              <span class="category-badge category-badge--reward-apps">Reward-App</span>
+            </div>
+
+            <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 1rem; word-break: break-all;">
+              Ziel: <a href={link.url} rel="nofollow" target="_blank" style="color: var(--color-text-muted);">{link.url}</a>
+            </p>
+
+            <AffiliateLink slug={link.slug}>
+              Jetzt zu {link.name} testen
+            </AffiliateLink>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: 3rem; padding: 1.25rem; background: var(--color-bg-alt); border-radius: 0.5rem; border: 1px solid var(--color-border);">
+        <h2 style="font-size: 1rem; margin-bottom: 0.75rem;">Tracking prüfen</h2>
+        <ol style="padding-left: 1.5rem; font-size: 0.9rem; color: var(--color-text-muted);">
+          <li style="margin-bottom: 0.4rem;">Klick auf einen Button oben</li>
+          <li style="margin-bottom: 0.4rem;">Umami-Dashboard öffnen → <strong>Pages</strong></li>
+          <li style="margin-bottom: 0.4rem;">Eintrag <code>/go/freecash</code> (o.ä.) erscheint</li>
+          <li>Unter <strong>Events</strong> → <code>affiliate-click</code> mit Slug &amp; Provider</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

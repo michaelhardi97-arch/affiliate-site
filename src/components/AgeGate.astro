@@ -1,0 +1,50 @@
+---
+// Rendered hidden – JS shows it only when localStorage has no confirmation.
+---
+
+<div id="age-gate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
+  <div class="age-gate__box">
+    <p class="age-gate__badge">18+</p>
+    <h2 id="age-gate-title" class="age-gate__title">Altersverifizierung</h2>
+    <p class="age-gate__body">
+      Diese Website richtet sich ausschließlich an Personen ab 18 Jahren.
+      Bitte bestätige dein Alter, um fortzufahren.
+    </p>
+    <p class="age-gate__question"><strong>Bist du 18 Jahre oder älter?</strong></p>
+    <div class="age-gate__buttons">
+      <button id="age-gate-yes" class="age-gate__btn age-gate__btn--yes">
+        Ja, ich bin 18+
+      </button>
+      <button id="age-gate-no" class="age-gate__btn age-gate__btn--no">
+        Nein
+      </button>
+    </div>
+    <p class="age-gate__hint">
+      Gluecksspiel kann suechtig machen. Hilfe: <a href="https://www.bzga.de" target="_blank" rel="noopener noreferrer">bzga.de</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'age_verified_v1';
+
+  const gate = document.getElementById('age-gate');
+  if (gate) {
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      // already verified – gate stays hidden
+    } else {
+      gate.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      document.getElementById('age-gate-yes')?.addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEY, 'true');
+        gate.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+
+      document.getElementById('age-gate-no')?.addEventListener('click', () => {
+        window.location.replace('https://www.google.com');
+      });
+    }
+  }
+</script>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Rating from '../../components/Rating.astro';
+import { getCollection } from 'astro:content';
+
+const reviews = (await getCollection('reviews')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const categories = ['casino', 'cs2', 'reward-apps'] as const;
+const categoryLabel: Record<string, string> = {
+  casino: 'Casino',
+  cs2: 'CS2',
+  'reward-apps': 'Reward-App',
+};
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
+---
+
+<BaseLayout
+  title="Anbieter-Reviews – AffiliateBlog"
+  description="Unsere ehrlichen Bewertungen zu Casinos, CS2-Plattformen und Reward-Apps. Alle Reviews mit Bonus, Rating und Erfahrungsbericht."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Anbieter-Reviews</h1>
+      <p>Ehrliche Erfahrungsberichte zu Casinos, CS2-Plattformen und Reward-Apps.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding-top:2.5rem;padding-bottom:3rem;">
+    {categories.map((cat) => {
+      const filtered = reviews.filter((r) => r.data.category === cat);
+      if (filtered.length === 0) return null;
+      return (
+        <section style="margin-bottom:3rem;">
+          <h2 style="margin-bottom:1.25rem;margin-top:0;">
+            <span class:list={['category-badge', `category-badge--${cat}`]} style="font-size:1rem;">
+              {categoryLabel[cat]}
+            </span>
+          </h2>
+          <div class="blog-grid">
+            {filtered.map((review) => (
+              <article class="card review-card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    <a href={`/reviews/${review.slug}`}>{review.data.title}</a>
+                  </h3>
+                  <p class="card-description">{review.data.description}</p>
+                  <div style="margin-bottom:0.5rem;">
+                    <Rating value={review.data.rating} />
+                  </div>
+                  <p class="review-card__bonus">{review.data.bonus}</p>
+                  <div class="card-meta">
+                    <time datetime={review.data.pubDate.toISOString()}>
+                      {dateFormatter.format(review.data.pubDate)}
+                    </time>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</BaseLayout>

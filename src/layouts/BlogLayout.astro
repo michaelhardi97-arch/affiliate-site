@@ -1,0 +1,75 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SidebarAd from '../components/ads/SidebarAd.astro';
+import InContentAd from '../components/ads/InContentAd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author?: string;
+  image?: string;
+  imageAlt?: string;
+  tags?: string[];
+}
+
+const { title, description, pubDate, updatedDate, author, image, imageAlt, tags } = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  pubDate={pubDate}
+  author={author}
+>
+  <div class="container">
+    <div class="content-grid">
+      <article>
+        <header class="article-header">
+          <h1>{title}</h1>
+          <div class="article-meta">
+            {author && <span>von {author}</span>}
+            <time datetime={pubDate.toISOString()}>
+              {dateFormatter.format(pubDate)}
+            </time>
+            {updatedDate && (
+              <span>
+                Aktualisiert: <time datetime={updatedDate.toISOString()}>{dateFormatter.format(updatedDate)}</time>
+              </span>
+            )}
+          </div>
+          {tags && tags.length > 0 && (
+            <ul class="tag-list">
+              {tags.map((tag) => <li><span class="tag">{tag}</span></li>)}
+            </ul>
+          )}
+        </header>
+
+        <div class="article-body">
+          <slot />
+          <InContentAd />
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <SidebarAd />
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-title">Newsletter</div>
+          <div class="sidebar-widget-body">
+            <p style="font-size:0.875rem;color:var(--color-text-muted);margin-bottom:0.75rem;">
+              Keine Empfehlung verpassen. Jetzt abonnieren.
+            </p>
+            <a href="#newsletter" class="affiliate-link" style="width:100%;justify-content:center;">
+              Abonnieren
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

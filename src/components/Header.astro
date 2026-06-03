@@ -1,0 +1,35 @@
+---
+import HeaderBanner from './ads/HeaderBanner.astro';
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-logo">Affiliate<span>Blog</span></a>
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <nav>
+      <ul class="site-nav" id="main-nav" role="list">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/reviews">Reviews</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container">
+    <HeaderBanner />
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

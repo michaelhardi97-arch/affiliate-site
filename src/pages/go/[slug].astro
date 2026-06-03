@@ -1,0 +1,105 @@
+---
+import { affiliateLinks } from '../../data/links.js';
+
+export function getStaticPaths() {
+  return affiliateLinks.map((link) => ({
+    params: { slug: link.slug },
+    props: { link },
+  }));
+}
+
+const { link } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Weiterleitung zu {link.name}...</title>
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="bf5f73d5-9c85-4fca-9d5c-4cf0d6d9ee3f"></script>
+
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #f8f9fa;
+        color: #1a1a2e;
+      }
+      .box { text-align: center; padding: 2rem; max-width: 400px; }
+      .spinner {
+        width: 40px; height: 40px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #2563eb;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        margin: 0 auto 1.5rem;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      p { margin-bottom: 0.75rem; line-height: 1.5; }
+      a { color: #2563eb; }
+      small { color: #6c757d; font-size: 0.82rem; }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Du wirst zu <strong>{link.name}</strong> weitergeleitet&nbsp;…</p>
+      <small>
+        Nicht weitergeleitet?
+        <!-- data-umami-event als Backup-Tracking für manuellen Klick -->
+        <a
+          href={link.url}
+          rel="sponsored nofollow"
+          data-umami-event="affiliate-click"
+          data-umami-event-slug={link.slug}
+          data-umami-event-provider={link.name}
+        >Hier klicken</a>
+      </small>
+    </div>
+
+    <!--
+      Tracking-Logik:
+      1. Defer-Scripts (inkl. Umami) laufen BEVOR DOMContentLoaded feuert.
+         → window.umami ist beim DOMContentLoaded-Handler bereits verfügbar.
+      2. Wir feuern ein Custom-Event "affiliate-click" und warten auf die Promise.
+      3. Ein Fallback-Timer (700ms) sorgt dafür, dass die Weiterleitung
+         auch ohne Umami oder bei Netzwerkproblemen stattfindet.
+    -->
+    <script define:vars={{ targetUrl: link.url, linkSlug: link.slug, linkName: link.name }}>
+      (function () {
+        var fallback = setTimeout(function () {
+          window.location.replace(targetUrl);
+        }, 700);
+
+        function doRedirect() {
+          clearTimeout(fallback);
+          window.location.replace(targetUrl);
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+          var umami = window.umami;
+          if (typeof umami !== 'undefined' && typeof umami.track === 'function') {
+            try {
+              var result = umami.track('click-' + linkSlug);
+              if (result && typeof result.then === 'function') {
+                result.then(doRedirect).catch(doRedirect);
+              } else {
+                doRedirect();
+              }
+            } catch (_) {
+              doRedirect();
+            }
+          }
+          // Kein Umami → Fallback-Timer übernimmt
+        });
+      })();
+    </script>
+  </body>
+</html>

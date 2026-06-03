@@ -1,0 +1,31 @@
+---
+interface Props {
+  /** Direkter Link – nur wenn kein slug verwendet wird */
+  href?: string;
+  /** Slug aus src/data/links.js → leitet über /go/[slug] weiter (empfohlen) */
+  slug?: string;
+  label?: string;
+  size?: 'default' | 'large';
+}
+
+const { href, slug, label, size = 'default' } = Astro.props;
+const finalHref = slug ? `/go/${slug}` : href;
+
+if (!finalHref) {
+  throw new Error('AffiliateLink: Entweder "slug" oder "href" ist erforderlich.');
+}
+---
+
+<a
+  href={finalHref}
+  rel="sponsored nofollow"
+  target="_blank"
+  class:list={['affiliate-link', size === 'large' && 'affiliate-link--large']}
+>
+  <slot>{label}</slot>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/>
+    <line x1="10" y1="14" x2="21" y2="3"/>
+  </svg>
+</a>

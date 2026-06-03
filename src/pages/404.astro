@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Seite nicht gefunden – AffiliateBlog"
+  description="Diese Seite existiert nicht."
+>
+  <div class="container" style="padding: 5rem 1.25rem; text-align: center;">
+    <p style="font-size: 4rem; font-weight: 900; color: var(--color-border); line-height: 1;">404</p>
+    <h1 style="margin: 1rem 0 0.75rem;">Seite nicht gefunden</h1>
+    <p style="color: var(--color-text-muted); margin-bottom: 2rem;">
+      Dieser Link existiert nicht oder wurde entfernt.
+    </p>
+    <a href="/" class="affiliate-link" style="display:inline-flex;">Zur Startseite</a>
+  </div>
+
+  <!-- /go/[slug]-Links mit unbekanntem Slug landen hier → automatisch zurück -->
+  <script>
+    if (window.location.pathname.startsWith('/go/')) {
+      setTimeout(() => { window.location.replace('/'); }, 2000);
+    }
+  </script>
+</BaseLayout>

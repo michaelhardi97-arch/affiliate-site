@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
+---
+
+<BaseLayout
+  title="Blog – AffiliateBlog"
+  description="Alle Artikel: Tests, Vergleiche und Empfehlungen zu Technik, Gadgets und mehr."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Alle Artikel</h1>
+      <p>Vergleiche, Tests und Empfehlungen – ehrlich und unabhängig.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding-top:2.5rem;padding-bottom:3rem;">
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <article class="card">
+          <div class="card-body">
+            {post.data.tags && (
+              <ul class="tag-list" style="margin-bottom:0.5rem;">
+                {post.data.tags.slice(0, 3).map((tag) => (
+                  <li><span class="tag">{tag}</span></li>
+                ))}
+              </ul>
+            )}
+            <h2 class="card-title">
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h2>
+            <p class="card-description">{post.data.description}</p>
+            <div class="card-meta">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFormatter.format(post.data.pubDate)}
+              </time>
+              {post.data.author && <span> · {post.data.author}</span>}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  value: number;   // 1–5
+  max?: number;
+  showLabel?: boolean;
+}
+const { value, max = 5, showLabel = true } = Astro.props;
+const stars = Array.from({ length: max }, (_, i) => i < value);
+---
+
+<div class="rating" aria-label={`Bewertung: ${value} von ${max}`}>
+  {stars.map((filled) => (
+    <span class={`star ${filled ? 'star--on' : 'star--off'}`} aria-hidden="true">★</span>
+  ))}
+  {showLabel && <span class="rating-label">{value}/{max}</span>}
+</div>
