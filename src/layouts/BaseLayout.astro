@@ -2,6 +2,8 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import AgeGate from '../components/AgeGate.astro';
+import LeftSkyscraper from '../components/ads/LeftSkyscraper.astro';
+import RightSkyscraper from '../components/ads/RightSkyscraper.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -72,9 +74,17 @@ const ogImage = new URL(image, Astro.site ?? 'https://affiliate-site.michaelhard
     <AgeGate />
     <div class="site-wrapper">
       <Header />
-      <main>
-        <slot />
-      </main>
+      <div class="sky-layout">
+        <aside class="sky-aside sky-aside--left">
+          <LeftSkyscraper />
+        </aside>
+        <main class="sky-main">
+          <slot />
+        </main>
+        <aside class="sky-aside sky-aside--right">
+          <RightSkyscraper />
+        </aside>
+      </div>
       <Footer />
     </div>
   </body>

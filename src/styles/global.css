@@ -610,3 +610,62 @@ main { flex: 1; }
   margin-top: .5rem;
   line-height: 1.6;
 }
+
+/* ── Skyscraper-Layout ───────────────────────────────
+   Drei-Spalten-Grid: [160px Skyscraper] [Inhalt] [160px Skyscraper]
+   Schwellenwert: 1200px (content) + 160px×2 (ads) + 3rem (gaps) ≈ 1560px
+   Darunter: Skyscrapers ausgeblendet, Inhalt volle Breite.
+   ─────────────────────────────────────────────────── */
+.sky-layout {
+  display: block;         /* Mobile/Tablet: kein Grid */
+  width: 100%;
+}
+
+.sky-main {
+  min-width: 0;           /* verhindert Grid-Überlauf */
+}
+
+.sky-aside {
+  display: none;          /* unsichtbar unter 1560px */
+}
+
+@media (min-width: 1560px) {
+  .sky-layout {
+    display: grid;
+    /* Mitte wächst bis max-width, Seiten fix 160px */
+    grid-template-columns: 160px minmax(0, var(--max-width)) 160px;
+    grid-template-areas: "left main right";
+    gap: 1.5rem;
+    /* Outer-cap: verhindert, dass Mitte über 1200px wächst */
+    max-width: calc(var(--max-width) + 160px * 2 + 3rem);
+    margin-left: auto;
+    margin-right: auto;
+    align-items: start;
+  }
+
+  .sky-aside--left  { grid-area: left;  display: block; }
+  .sky-aside--right { grid-area: right; display: block; }
+  .sky-main         { grid-area: main; }
+}
+
+/* Slot-Styling */
+.sky-slot {
+  background: var(--color-ad-bg);
+  border: 2px dashed var(--color-ad-border);
+  border-radius: var(--radius);
+  width: 160px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  color: var(--color-text-muted);
+  font-size: .78rem;
+  font-weight: 500;
+  text-align: center;
+
+  /* Sticky: scrollt mit, bleibt im Viewport sobald der Header weg ist */
+  position: sticky;
+  top: 88px;             /* Höhe des sticky Headers + etwas Luft */
+}
