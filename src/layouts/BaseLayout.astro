@@ -12,6 +12,7 @@ interface Props {
   canonicalURL?: string;
   pubDate?: Date;
   author?: string;
+  schema?: Record<string, unknown>;
 }
 
 const {
@@ -22,9 +23,10 @@ const {
   canonicalURL = Astro.url.href,
   pubDate,
   author,
+  schema,
 } = Astro.props;
 
-const ogImage = new URL(image, Astro.site ?? 'https://your-domain.com').href;
+const ogImage = new URL(image, Astro.site ?? 'https://affiliate-site.michaelhardi97.workers.dev').href;
 ---
 
 <!doctype html>
@@ -58,6 +60,10 @@ const ogImage = new URL(image, Astro.site ?? 'https://your-domain.com').href;
     )}
     {type === 'article' && author && (
       <meta property="article:author" content={author} />
+    )}
+
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
     <script defer src="https://cloud.umami.is/script.js" data-website-id="bf5f73d5-9c85-4fca-9d5c-4cf0d6d9ee3f"></script>

@@ -30,10 +30,14 @@ const reviews = defineCollection({
     category: z.enum(['cs2', 'casino', 'reward-apps']),
     affiliateSlug: z.string(),
 
-    // SEO
+    // SEO / GEO
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })).optional(),
   }),
 });
 

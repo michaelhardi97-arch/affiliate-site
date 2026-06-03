@@ -1,0 +1,11 @@
+# AffiliateBlog – Reward-Apps & Geld-verdienen-Guides
+
+> Unabhängige Reviews und Schritt-für-Schritt-Anleitungen zu seriösen Reward-Apps (FreeCash, Swagbucks, BigCash): wie sie funktionieren, was man realistisch verdient, Auszahlung, Support und Erfahrungen.
+
+## Reviews
+- [FreeCash Review](https://affiliate-site.michaelhardi97.workers.dev/reviews/freecash): Coins-System, Offer Walls, Auszahlung via PayPal und Krypto
+- [Swagbucks Review](https://affiliate-site.michaelhardi97.workers.dev/reviews/swagbucks): Umfragen, Cashback beim Einkaufen, 300 SB Willkommensbonus
+- [BigCash Review](https://affiliate-site.michaelhardi97.workers.dev/reviews/bigcash): Mobile App, Aufgaben, PayPal-Auszahlung ab 5 $
+
+## Blog
+- [Reward-Apps Vergleich 2024](https://affiliate-site.michaelhardi97.workers.dev/blog/reward-apps-vergleich): FreeCash vs. Swagbucks vs. BigCash – Tabelle mit Auszahlungsschwelle, Methoden und Referral

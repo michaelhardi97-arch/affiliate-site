@@ -19,11 +19,12 @@ interface Props {
   bonus: string;
   category: 'cs2' | 'casino' | 'reward-apps';
   affiliateSlug: string;
+  faq?: { question: string; answer: string }[];
 }
 
 const {
   title, description, pubDate, updatedDate, author, image, imageAlt, tags,
-  providerName, rating, bonus, category, affiliateSlug,
+  providerName, rating, bonus, category, affiliateSlug, faq,
 } = Astro.props;
 
 const categoryLabel: Record<string, string> = {
@@ -33,6 +34,16 @@ const categoryLabel: Record<string, string> = {
 };
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
+
+const faqSchema = faq?.length ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+} : undefined;
 ---
 
 <BaseLayout
@@ -42,11 +53,11 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
   type="article"
   pubDate={pubDate}
   author={author}
+  schema={faqSchema}
 >
   <div class="container">
     <div class="content-grid">
       <article>
-        <!-- Review-Header -->
         <header class="review-header">
           <div class="review-header__top">
             <span class:list={['category-badge', `category-badge--${category}`]}>
@@ -84,13 +95,11 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
           )}
         </header>
 
-        <!-- Artikel-Inhalt -->
         <div class="article-body">
           <slot />
           <InContentAd />
         </div>
 
-        <!-- CTA am Ende -->
         <div class="review-cta">
           <p class="review-cta__provider">{providerName}</p>
           <p class="review-cta__bonus">{bonus}</p>
@@ -99,7 +108,7 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' });
             Jetzt zu {providerName} &rarr;
           </AffiliateLink>
           <p class="review-cta__disclaimer">
-            * Affiliate-Link. Es gelten die AGB des Anbieters. Gluecksspiel kann suechtig machen.
+            * Affiliate-Link. Es gelten die AGB des Anbieters.
           </p>
         </div>
       </article>
