@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Impressum – CashKompass"
+  description="Impressum von CashKompass gemäß § 5 DDG."
+>
+  <section class="page-header">
+    <div class="container">
+      <h1>Impressum</h1>
+    </div>
+  </section>
+
+  <div class="container" style="padding: 3rem 1.25rem; max-width: 760px;">
+    <div class="legal-body">
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        <span class="ph">Vorname Nachname</span><br />
+        <span class="ph">Straße und Hausnummer</span><br />
+        <span class="ph">PLZ Ort</span><br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        E-Mail: <span class="ph">deine@email.de</span><br />
+        Telefon: <span class="ph">+49 …</span>
+      </p>
+
+      <h2>Verantwortlich nach § 18 Abs. 2 MStV</h2>
+      <p>
+        <span class="ph">Vorname Nachname</span><br />
+        <span class="ph">Straße und Hausnummer</span><br />
+        <span class="ph">PLZ Ort</span>
+      </p>
+
+      <hr />
+
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
+        allgemeinen Gesetzen verantwortlich. Nach §§ 8–10 DDG sind wir als Diensteanbieter jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen
+        zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+      </p>
+
+      <h2>Haftung für Links</h2>
+      <p>
+        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+        verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+      </p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
+        Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+        Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-body h2 {
+    font-size: 1.15rem;
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+    color: var(--navy-800);
+  }
+  .legal-body p { color: var(--gray-700); font-size: .95rem; }
+  .legal-body hr { margin: 2.5rem 0; }
+
+  /* Platzhalter-Felder: gold hinterlegt, sofort erkennbar */
+  .ph {
+    background: var(--gold-100);
+    border: 1px dashed var(--gold-500);
+    border-radius: 4px;
+    padding: .1rem .45rem;
+    font-style: italic;
+    color: var(--gold-600);
+    font-size: .9em;
+  }
+  .ph::before { content: '✏ '; font-style: normal; font-size: .8em; }
+</style>
