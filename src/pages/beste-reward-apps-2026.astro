@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
+import AffiliateLink from '../components/AffiliateLink.astro';
+import Rating from '../components/Rating.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import { getCollection } from 'astro:content';
+
+const SITE_URL = Astro.site?.href?.replace(/\/$/, '') ?? 'https://affiliate-site.michaelhardi97.workers.dev';
+
+const reviews = (await getCollection('reviews'))
+  .filter(r => r.data.category === 'reward-apps')
+  .sort((a, b) => b.data.rating - a.data.rating);
+
+const comparisonData = [
+  {
+    name: 'FreeCash',
+    slug: 'freecash-review-2026',
+    affiliateSlug: 'freecash',
+    rating: 4,
+    minPayout: '1 $ (Krypto/Gutschein)',
+    payoutTime: '~1 Stunde',
+    platform: 'Browser',
+    specialty: 'Schnelle Auszahlung',
+  },
+  {
+    name: 'Swagbucks',
+    slug: 'swagbucks-review-2026',
+    affiliateSlug: 'swagbucks',
+    rating: 4,
+    minPayout: '5 $ (PayPal)',
+    payoutTime: '2–3 Werktage',
+    platform: 'Browser',
+    specialty: 'Cashback Shopping',
+  },
+  {
+    name: 'BigCash',
+    slug: 'bigcash-review-2026',
+    affiliateSlug: 'bigcash',
+    rating: 4,
+    minPayout: '1 $ (PayPal)',
+    payoutTime: '10 Min.–48 Std.',
+    platform: 'iOS & Android',
+    specialty: 'Referral-Programm',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'Welche Reward-App zahlt am meisten?',
+    answer: 'Das hängt vom Nutzungstyp ab. FreeCash bietet das breiteste Offer-Wall-Angebot, Swagbucks überzeugt durch Cashback beim Online-Shopping, BigCash durch das Referral-Programm. Realistische Monatsverdienste: 5–30 $ je nach App und Aufwand.',
+  },
+  {
+    question: 'Sind Reward-Apps seriös?',
+    answer: 'FreeCash, Swagbucks und BigCash sind seriöse Plattformen mit nachweislichen Auszahlungen. Swagbucks existiert seit 2008 und ist BBB-akkreditiert. FreeCash hat über 10 Millionen Nutzer laut eigenen Angaben. Alle drei zahlen tatsächlich aus.',
+  },
+  {
+    question: 'Kann man mit Reward-Apps wirklich Geld verdienen?',
+    answer: 'Ja, aber in überschaubaren Mengen. Realistisch sind 5–30 $ pro Monat bei regelmäßiger Nutzung. Kein seriöser Anbieter ermöglicht ein Haupteinkommen durch GPT-Aktivitäten.',
+  },
+  {
+    question: 'Welche Reward-App hat die niedrigste Auszahlungsgrenze?',
+    answer: 'BigCash und FreeCash (Krypto) ermöglichen Auszahlungen ab ~1 $. Das ist deutlich niedriger als Swagbucks (5 $).',
+  },
+  {
+    question: 'Kann man mehrere Reward-Apps gleichzeitig nutzen?',
+    answer: 'Ja, das ist ausdrücklich empfehlenswert. Viele Nutzer kombinieren alle drei Apps. Der Zeitaufwand zusammen beträgt 30–45 Minuten täglich, die Einnahmen summieren sich.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Beste Reward Apps 2026' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Beste Reward Apps 2026: Seriöse Apps zum Geld verdienen im Vergleich"
+  description="FreeCash, Swagbucks und BigCash im Vergleich: Welche Reward-App zahlt am meisten, welche hat die niedrigste Auszahlungsgrenze und für wen lohnt sich welche?"
+  schema={[faqSchema, breadcrumbSchema]}
+>
+  <!-- ── Page Header ──────────────────────────────── -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Beste Reward Apps 2026</h1>
+      <p>Seriöse Apps zum Geld verdienen – ehrlich verglichen.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding: 2.5rem 1.25rem 4rem;">
+
+    <AffiliateDisclosure />
+
+    <!-- ── Kurze Antwort ──────────────────────────── -->
+    <div class="quick-answer">
+      <p>
+        <strong>Kurz & klar:</strong> FreeCash, Swagbucks und BigCash sind alle seriös und zahlen
+        tatsächlich aus. Der Unterschied liegt im Nutzungstyp: FreeCash für schnelle Auszahlungen,
+        Swagbucks für Cashback beim Einkaufen, BigCash für mobile Nutzung und das beste
+        Referral-Programm. Realistische Einnahmen: 5–30 $ pro Monat.
+      </p>
+    </div>
+
+    <!-- ── Vergleichstabelle ───────────────────────── -->
+    <h2>Direktvergleich: FreeCash vs. Swagbucks vs. BigCash</h2>
+    <ComparisonTable apps={comparisonData} />
+
+    <!-- ── App-Kacheln ───────────────────────────── -->
+    <h2 style="margin-top:3rem;">Die Apps im Überblick</h2>
+    <div class="app-grid" style="margin-bottom:3rem;">
+      {reviews.map((review) => (
+        <div class="app-card">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.4rem;">
+              <p class="app-card__name">{review.data.providerName}</p>
+              <span class="category-badge category-badge--reward-apps">Reward-App</span>
+            </div>
+            <Rating value={review.data.rating} />
+          </div>
+          <p class="app-card__desc">{review.data.description}</p>
+          <div class="app-card__bonus">
+            <span class="app-card__bonus-label">Bonus</span>
+            <span class="app-card__bonus-value">{review.data.bonus}</span>
+          </div>
+          <div class="app-card__actions">
+            <a href={`/reviews/${review.slug}`} class="btn btn--ghost" style="flex:1;">
+              Zum Review
+            </a>
+            <AffiliateLink slug={review.data.affiliateSlug}>
+              Testen
+            </AffiliateLink>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- ── Empfehlungen nach Nutzertyp ────────────── -->
+    <h2>Welche App passt zu dir?</h2>
+    <div class="user-type-grid">
+      {[
+        {
+          icon: '⚡',
+          type: 'Du willst schnell erste Euros sehen',
+          recommendation: 'FreeCash',
+          slug: 'freecash-review-2026',
+          affiliateSlug: 'freecash',
+          reason: 'Krypto und Gutscheine ab ~1 $, gebührenfrei, laut Anbieter meist innerhalb einer Stunde verfügbar.',
+        },
+        {
+          icon: '🛒',
+          type: 'Du kaufst regelmäßig online ein',
+          recommendation: 'Swagbucks',
+          slug: 'swagbucks-review-2026',
+          affiliateSlug: 'swagbucks',
+          reason: 'Cashback bei 1.500+ Partnershops (Amazon, OTTO, Zalando u.v.m.) – dauerhafter Mehrwert ohne Extraaufwand.',
+        },
+        {
+          icon: '📱',
+          type: 'Du nutzt hauptsächlich dein Smartphone',
+          recommendation: 'BigCash',
+          slug: 'bigcash-review-2026',
+          affiliateSlug: 'bigcash',
+          reason: 'Native App für iOS und Android, PayPal ab 1 $ gebührenfrei, starkes Referral-Programm.',
+        },
+        {
+          icon: '🔄',
+          type: 'Du willst maximale Einnahmen',
+          recommendation: 'Alle drei kombinieren',
+          slug: null,
+          affiliateSlug: null,
+          reason: '30–45 Minuten täglich, alle drei Apps parallel – die Einnahmen addieren sich auf 20–80 $ im Monat.',
+        },
+      ].map((item) => (
+        <div class="user-type-card">
+          <p class="user-type-card__icon">{item.icon}</p>
+          <p class="user-type-card__type">{item.type}</p>
+          <p class="user-type-card__rec">{item.recommendation}</p>
+          <p class="user-type-card__reason">{item.reason}</p>
+          {item.slug && item.affiliateSlug && (
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;">
+              <a href={`/reviews/${item.slug}`} class="btn btn--ghost" style="font-size:.8rem;padding:.4rem .875rem;">
+                Review
+              </a>
+              <AffiliateLink slug={item.affiliateSlug}>
+                Testen
+              </AffiliateLink>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- ── Ehrliche Einordnung ────────────────────── -->
+    <div class="honest-box">
+      <h2>Ehrliche Einordnung</h2>
+      <p>
+        Reward-Apps sind Taschengeld, kein Job. Der Stundenverdienst liegt je nach App und
+        Aktivität bei 0,50–5 $. Niemand wird damit seinen Lebensunterhalt finanzieren.
+        Wer das versteht und die Apps in Pausen, Wartezeiten oder nebenher nutzt, wird
+        langfristig zufrieden sein. Übertriebene Verdienstversprechen – „verdiene 500 €
+        täglich" – sind stets unseriös.
+      </p>
+    </div>
+
+    <!-- ── FAQ ──────────────────────────────────────── -->
+    <h2 style="margin-top:3rem;">Häufige Fragen</h2>
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-item__question">{item.question}</summary>
+          <p class="faq-item__answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:.8rem;color:var(--color-text-muted);margin-top:2rem;">
+      Stand: Juni 2026 · Alle Angaben ohne Gewähr, Konditionen können sich ändern.
+    </p>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .quick-answer {
+    background: var(--navy-50);
+    border-left: 3px solid var(--navy-800);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    font-size: .95rem;
+    color: var(--gray-700);
+  }
+
+  .user-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .user-type-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .user-type-card__icon { font-size: 1.5rem; margin-bottom: .4rem; }
+  .user-type-card__type { font-size: .8rem; color: var(--color-text-muted); margin-bottom: .35rem; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+  .user-type-card__rec  { font-size: 1.05rem; font-weight: 800; color: var(--navy-800); margin-bottom: .4rem; }
+  .user-type-card__reason { font-size: .85rem; color: var(--gray-700); margin: 0; line-height: 1.55; }
+
+  .honest-box {
+    background: var(--gold-50);
+    border: 1px solid var(--gold-100);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .honest-box h2 { margin-top: 0; font-size: 1.1rem; color: var(--navy-800); }
+  .honest-box p  { margin: 0; font-size: .9rem; color: var(--gray-700); }
+
+  .faq-list { display: flex; flex-direction: column; gap: .75rem; }
+
+  .faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    padding: .875rem 1rem;
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+    background: var(--color-bg);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+  }
+  .faq-item__question::-webkit-details-marker { display: none; }
+  .faq-item__question::after {
+    content: '+';
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+  details[open] .faq-item__question::after { content: '−'; }
+  .faq-item__question:hover { background: var(--gray-50); }
+
+  .faq-item__answer {
+    padding: .75rem 1rem 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: .9rem;
+    color: var(--gray-700);
+    margin: 0;
+    background: var(--color-bg);
+  }
+</style>
