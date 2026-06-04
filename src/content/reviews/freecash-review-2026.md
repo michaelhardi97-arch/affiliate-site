@@ -68,7 +68,7 @@ Der Einstieg ist einfach: kostenlose Registrierung mit E-Mail-Adresse, Gratis-Co
 Vier Hauptwege zum Verdienen:
 
 **1. Offer Walls**
-Die lukrativste Einnahmequelle. Über Netzwerke wie Lootably, CPX Research oder Offertoro stehen täglich neue Angebote bereit: App-Downloads, Testregistrierungen, Spielfortschritte. Einfache Angebote bringen wenige Cents, komplexere (z.B. Finanzprodukte oder Casino-Ersteinzahlung bei Drittanbietern) können mehrere Dollar einbringen.
+Die lukrativste Einnahmequelle. Über Netzwerke wie Lootably, CPX Research oder Offertoro stehen täglich neue Angebote bereit: App-Downloads, Testregistrierungen, Spielfortschritte. Einfache Angebote bringen wenige Cents, komplexere (z.B. Finanzprodukt-Registrierungen oder App-Abonnements bei Drittanbietern) können mehrere Dollar einbringen.
 
 **2. Surveys**
 Meinungsumfragen von 5–25 Minuten. Qualifizierungsscreener sind normal. Stundenverdienst laut eigener Erfahrung: 0,20–0,80 $.

@@ -15,6 +15,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="container" style="padding: 3rem 1.25rem; max-width: 760px;">
     <div class="legal-body">
 
+      <!-- TODO-Banner – vor Veröffentlichung ausfüllen und entfernen -->
+      <div class="todo-banner" role="note" aria-label="Ausstehende Pflichtangaben">
+        <strong>TODO vor Veröffentlichung:</strong> Alle gold markierten Felder müssen
+        vor dem ersten öffentlichen Aufruf mit echten Angaben ausgefüllt werden.
+        Ein unvollständiges Impressum verstößt gegen § 5 DDG und kann abgemahnt werden.
+      </div>
+
       <h2>Angaben gemäß § 5 DDG</h2>
       <p>
         <span class="ph">Vorname Nachname</span><br />
@@ -23,13 +30,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Deutschland
       </p>
 
-      <h2>Kontakt</h2>
+      <h2 id="kontakt">Kontakt</h2>
       <p>
         E-Mail: <span class="ph">deine@email.de</span><br />
-        Telefon: <span class="ph">+49 …</span>
+        Telefon: <span class="ph">+49 … (optional, aber empfohlen)</span>
       </p>
 
-      <h2>Verantwortlich nach § 18 Abs. 2 MStV</h2>
+      <h2>Verantwortlich für journalistisch-redaktionelle Inhalte<br/>nach § 18 Abs. 2 MStV</h2>
       <p>
         <span class="ph">Vorname Nachname</span><br />
         <span class="ph">Straße und Hausnummer</span><br />
@@ -38,26 +45,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <hr />
 
+      <h2>Hinweis zu Affiliate-Links</h2>
+      <p>
+        Diese Website enthält Affiliate-Links. Wenn du über diese Links bei einem Drittanbieter
+        eine Registrierung oder Transaktion durchführst, können wir eine Provision erhalten.
+        Für dich entstehen dadurch keine Mehrkosten. Die redaktionelle Unabhängigkeit
+        unserer Inhalte bleibt davon unberührt. Weitere Informationen findest du auf unserer
+        <a href="/ueber-uns#affiliate">Über-uns-Seite</a>.
+      </p>
+
+      <hr />
+
       <h2>Haftung für Inhalte</h2>
       <p>
-        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
-        allgemeinen Gesetzen verantwortlich. Nach §§ 8–10 DDG sind wir als Diensteanbieter jedoch nicht
-        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen
-        zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten
+        nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8–10 DDG sind wir nicht verpflichtet,
+        übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu
+        forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
       </p>
 
       <h2>Haftung für Links</h2>
       <p>
-        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
-        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
-        verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
+        Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr übernehmen.
+        Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber
+        verantwortlich.
       </p>
 
       <h2>Urheberrecht</h2>
       <p>
-        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
-        Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
-        Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
+        dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
+        der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
+        Zustimmung des jeweiligen Autors bzw. Erstellers.
       </p>
 
     </div>
@@ -66,7 +86,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .legal-body h2 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin-top: 2rem;
     margin-bottom: .5rem;
     color: var(--navy-800);
@@ -74,7 +94,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .legal-body p { color: var(--gray-700); font-size: .95rem; }
   .legal-body hr { margin: 2.5rem 0; }
 
-  /* Platzhalter-Felder: gold hinterlegt, sofort erkennbar */
+  .todo-banner {
+    background: #fff8e1;
+    border: 1px solid #f59e0b;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: .875rem 1.1rem;
+    margin-bottom: 2rem;
+    font-size: .875rem;
+    color: #78350f;
+    line-height: 1.6;
+  }
+
   .ph {
     background: var(--gold-100);
     border: 1px dashed var(--gold-500);

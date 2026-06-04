@@ -3,16 +3,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Rating from '../../components/Rating.astro';
 import { getCollection } from 'astro:content';
 
-const reviews = (await getCollection('reviews')).sort(
+const allReviews = (await getCollection('reviews')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const categories = ['casino', 'cs2', 'reward-apps'] as const;
+// Kategorien dynamisch aus vorhandenen Beiträgen ableiten – keine leeren Abschnitte
+const categoryOrder = ['reward-apps', 'casino', 'cs2'] as const;
 const categoryLabel: Record<string, string> = {
-  casino: 'Casino',
-  cs2: 'CS2',
   'reward-apps': 'Reward-App',
+  'casino': 'Casino',
+  'cs2': 'CS2',
 };
+
+const presentCategories = categoryOrder.filter(cat =>
+  allReviews.some(r => r.data.category === cat)
+);
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
 ---
@@ -29,9 +34,8 @@ const dateFormatter = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium' });
   </section>
 
   <div class="container" style="padding-top:2.5rem;padding-bottom:3rem;">
-    {categories.map((cat) => {
-      const filtered = reviews.filter((r) => r.data.category === cat);
-      if (filtered.length === 0) return null;
+    {presentCategories.map((cat) => {
+      const filtered = allReviews.filter((r) => r.data.category === cat);
       return (
         <section style="margin-bottom:3rem;">
           <h2 style="margin-bottom:1.25rem;margin-top:0;">

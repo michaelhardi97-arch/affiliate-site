@@ -4,7 +4,7 @@
  * Felder:
  *   slug     – URL-Segment für /go/[slug]
  *   name     – Anzeigename des Anbieters
- *   category – 'reward-apps' | 'casino' | 'cs2'
+ *   category – aktuell nur 'reward-apps' aktiv
  *   url      – Ziel-URL inkl. Ref-Parameter
  */
 export const affiliateLinks = [
