@@ -3,35 +3,114 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <a href="/" class="footer-logo" aria-label="CashKompass – Startseite">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="16" cy="16" r="14" stroke="#fff" stroke-width="1.5" opacity="0.2"/>
-        <path d="M16 3 L18.5 16 L16 13.5 L13.5 16 Z" fill="#F5A623"/>
-        <path d="M16 29 L13.5 16 L16 18.5 L18.5 16 Z" fill="#fff" opacity="0.5"/>
-        <circle cx="16" cy="16" r="2.5" fill="#fff" opacity="0.6"/>
-        <circle cx="16" cy="16" r="1.2" fill="#F5A623"/>
-      </svg>
-      Cash<span style="color: var(--gold-400);">Kompass</span>
-    </a>
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-cols">
+        <!-- Marke -->
+        <div class="footer-brand">
+          <a href="/" class="footer-logo" aria-label="CashKompass – zur Startseite">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="28" height="28">
+              <circle cx="16" cy="16" r="14" stroke="#fff" stroke-width="1.5" opacity="0.2"/>
+              <path d="M16 3 L18.5 16 L16 13.5 L13.5 16 Z" fill="#F5A623"/>
+              <path d="M16 29 L13.5 16 L16 18.5 L18.5 16 Z" fill="#fff" opacity="0.5"/>
+              <circle cx="16" cy="16" r="2.5" fill="#fff" opacity="0.6"/>
+              <circle cx="16" cy="16" r="1.2" fill="#F5A623"/>
+            </svg>
+            Cash<span class="footer-logo-accent">Kompass</span>
+          </a>
+          <p class="footer-tagline">Dein Kompass für seriösen Nebenverdienst.</p>
+        </div>
 
-    <p class="footer-copy">© {year} CashKompass. Alle Rechte vorbehalten.</p>
+        <!-- Navigation -->
+        <nav aria-label="Footer-Navigation">
+          <p class="footer-nav-heading">Navigation</p>
+          <ul class="footer-nav-list">
+            <li><a href="/beste-reward-apps-2026">Beste Reward Apps</a></li>
+            <li><a href="/reviews">Reviews</a></li>
+            <li><a href="/wie-wir-testen">Wie wir testen</a></li>
+            <li><a href="/ueber-uns">Über uns</a></li>
+          </ul>
+        </nav>
 
-    <nav aria-label="Footer-Navigation">
-      <ul class="footer-links">
-        <li><a href="/ueber-uns">Über uns</a></li>
-        <li><a href="/wie-wir-testen">Wie wir testen</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-      </ul>
-    </nav>
+        <!-- Rechtliches -->
+        <nav aria-label="Rechtliche Links">
+          <p class="footer-nav-heading">Rechtliches</p>
+          <ul class="footer-nav-list">
+            <li><a href="/impressum">Impressum & Kontakt</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/ueber-uns#affiliate">Affiliate-Hinweis</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </div>
 
-  <div class="container">
-    <p class="footer-disclaimer">
-      * Diese Seite enthält Affiliate-Links. Wenn du über einen unserer Links ein Konto erstellst,
-      erhalten wir eine Provision – für dich entstehen keine Mehrkosten.
-      Alle Reviews basieren auf eigenen Testerfahrungen. Verdienstangaben sind Richtwerte ohne Garantie.
-    </p>
+  <div class="footer-bottom">
+    <div class="container">
+      <p class="footer-disclaimer">
+        Diese Seite enthält Affiliate-Links. Wenn du über unsere Links ein Konto erstellst,
+        erhalten wir eine Provision – für dich ohne Mehrkosten. Alle Reviews basieren auf
+        eigener Nutzung. Verdienstangaben sind Richtwerte, keine Garantien.
+        Stand: Juni 2026.
+      </p>
+      <p class="footer-copy">© {year} CashKompass</p>
+    </div>
   </div>
 </footer>
+
+<style>
+  .footer-top {
+    background: var(--navy-900);
+    padding: 3rem 0 2rem;
+  }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+  @media (max-width: 640px) {
+    .footer-cols { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .footer-brand { display: flex; flex-direction: column; gap: .75rem; }
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .footer-logo:hover { color: var(--gold-400); }
+  .footer-logo-accent { color: var(--gold-400); }
+  .footer-tagline { font-size: .85rem; color: var(--gray-400); margin: 0; }
+
+  .footer-nav-heading {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--gray-400);
+    margin-bottom: .75rem;
+  }
+  .footer-nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .5rem; }
+  .footer-nav-list a { color: var(--gray-300); text-decoration: none; font-size: .875rem; transition: color .15s; }
+  .footer-nav-list a:hover { color: var(--gold-400); }
+
+  .footer-bottom {
+    background: var(--navy-900);
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 1.25rem 0;
+  }
+  .footer-bottom .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-disclaimer { font-size: .75rem; color: var(--gray-400); margin: 0; max-width: 680px; line-height: 1.6; }
+  .footer-copy { font-size: .75rem; color: var(--gray-500); margin: 0; white-space: nowrap; }
+</style>

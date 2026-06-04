@@ -40,21 +40,21 @@ const globalSchemas = [
   <section class="hero">
     <div class="hero__inner container">
       <div class="hero__content">
-        <span class="hero__badge">Reward-Apps 2024</span>
+        <span class="hero__badge">Reward-Apps 2026</span>
         <h1 class="hero__headline">
           Dein Kompass für<br/>
           <span class="hero__headline-accent">seriösen Nebenverdienst</span>
         </h1>
         <p class="hero__subtitle">
-          Wir testen und bewerten die besten Reward-Apps – ehrlich, unabhängig und mit konkreten Zahlen.
+          Wir testen die besten Reward-Apps – ehrlich, unabhängig und mit konkreten Zahlen.
           Finde heraus, welche App sich für dich wirklich lohnt.
         </p>
         <div class="hero__actions">
-          <a href="/reviews" class="btn btn--primary">
-            Apps entdecken
+          <a href="/beste-reward-apps-2026" class="btn btn--primary">
+            Beste Apps 2026
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="/blog/reward-apps-vergleich" class="btn btn--ghost-white">Alle vergleichen</a>
+          <a href="/wie-wir-testen" class="btn btn--ghost-white">Wie wir testen</a>
         </div>
       </div>
 
@@ -132,16 +132,32 @@ const globalSchemas = [
         <p>Keine Werbung als Ratschlag. Wir testen selbst und sagen dir, was wirklich drin ist.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;">
-        {[
-          { icon: '🧭', title: 'Ehrliche Orientierung', text: 'Realistische Einordnung ohne aufgeblasene Verdienstversprechen.' },
-          { icon: '🔬', title: 'Selbst getestet', text: 'Jede App wird von uns selbst genutzt, bevor wir sie empfehlen.' },
-          { icon: '⚡', title: 'Aktuelle Daten', text: 'Auszahlungsschwellen und Methoden werden regelmäßig geprüft.' },
-          { icon: '🔒', title: 'Transparent', text: 'Affiliate-Links sind klar gekennzeichnet. Deine Kosten ändern sich nicht.' },
-        ].map((item) => (
-          <div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-sm);">
-            <p style="font-size:1.75rem;margin-bottom:.5rem;">{item.icon}</p>
-            <h3 style="font-size:1rem;margin-top:0;margin-bottom:.4rem;">{item.title}</h3>
-            <p style="font-size:.875rem;color:var(--color-text-muted);margin:0;">{item.text}</p>
+        {([
+          {
+            title: 'Ehrliche Orientierung',
+            text: 'Realistische Einordnung ohne aufgeblasene Verdienstversprechen.',
+            svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+          },
+          {
+            title: 'Selbst getestet',
+            text: 'Jede App wird von uns selbst genutzt, bevor wir sie empfehlen.',
+            svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+          },
+          {
+            title: 'Aktuelle Daten',
+            text: 'Auszahlungsschwellen und Methoden werden regelmäßig geprüft.',
+            svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>`,
+          },
+          {
+            title: 'Transparent',
+            text: 'Affiliate-Links sind klar gekennzeichnet. Deine Kosten ändern sich nicht.',
+            svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+          },
+        ] as { title: string; text: string; svg: string }[]).map((item) => (
+          <div class="feature-card">
+            <div class="feature-card__icon" set:html={item.svg} />
+            <h3 class="feature-card__title">{item.title}</h3>
+            <p class="feature-card__text">{item.text}</p>
           </div>
         ))}
       </div>

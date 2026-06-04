@@ -83,6 +83,7 @@ const schemaBlock = schema
     <script defer src="https://cloud.umami.is/script.js" data-website-id="bf5f73d5-9c85-4fca-9d5c-4cf0d6d9ee3f"></script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
     <AgeGate />
     <div class="site-wrapper">
       <Header />
@@ -90,7 +91,7 @@ const schemaBlock = schema
         <aside class="sky-aside sky-aside--left">
           <LeftSkyscraper />
         </aside>
-        <main class="sky-main">
+        <main class="sky-main" id="main-content" tabindex="-1">
           <slot />
         </main>
         <aside class="sky-aside sky-aside--right">

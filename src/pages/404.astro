@@ -3,22 +3,103 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Seite nicht gefunden – AffiliateBlog"
-  description="Diese Seite existiert nicht."
+  title="Seite nicht gefunden – CashKompass"
+  description="Diese Seite existiert nicht oder wurde verschoben."
 >
-  <div class="container" style="padding: 5rem 1.25rem; text-align: center;">
-    <p style="font-size: 4rem; font-weight: 900; color: var(--color-border); line-height: 1;">404</p>
-    <h1 style="margin: 1rem 0 0.75rem;">Seite nicht gefunden</h1>
-    <p style="color: var(--color-text-muted); margin-bottom: 2rem;">
-      Dieser Link existiert nicht oder wurde entfernt.
-    </p>
-    <a href="/" class="affiliate-link" style="display:inline-flex;">Zur Startseite</a>
+  <div class="not-found">
+    <div class="not-found__inner">
+      <!-- Kompassnadel-SVG dezent als Dekoration -->
+      <svg class="not-found__icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="38" stroke="var(--navy-100)" stroke-width="2"/>
+        <circle cx="40" cy="40" r="28" stroke="var(--navy-100)" stroke-width="1"/>
+        <path d="M40 8 L44 40 L40 34 L36 40 Z" fill="var(--gold-500)"/>
+        <path d="M40 72 L36 40 L40 46 L44 40 Z" fill="var(--navy-200)"/>
+        <circle cx="40" cy="40" r="5" fill="var(--navy-800)"/>
+        <circle cx="40" cy="40" r="2.5" fill="var(--gold-500)"/>
+      </svg>
+
+      <p class="not-found__code" aria-label="Fehlercode 404">404</p>
+      <h1 class="not-found__title">Seite nicht gefunden</h1>
+      <p class="not-found__text">
+        Diese Seite existiert nicht oder wurde verschoben.
+        Vielleicht hilft dir einer der Links unten weiter.
+      </p>
+
+      <div class="not-found__actions">
+        <a href="/" class="btn btn--primary">Zur Startseite</a>
+        <a href="/beste-reward-apps-2026" class="btn btn--ghost">Beste Reward Apps</a>
+      </div>
+
+      <nav aria-label="Hilfreiche Links" class="not-found__links">
+        <ul role="list">
+          <li><a href="/reviews">Alle Reviews</a></li>
+          <li><a href="/wie-wir-testen">Wie wir testen</a></li>
+          <li><a href="/ueber-uns">Über uns</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <!-- /go/[slug]-Links mit unbekanntem Slug landen hier → automatisch zurück -->
+  <!-- /go/-Links mit unbekanntem Slug → Startseite -->
   <script>
     if (window.location.pathname.startsWith('/go/')) {
       setTimeout(() => { window.location.replace('/'); }, 2000);
     }
   </script>
 </BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 4rem 1.25rem;
+  }
+  .not-found__inner {
+    text-align: center;
+    max-width: 480px;
+  }
+  .not-found__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    opacity: .8;
+  }
+  .not-found__code {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--navy-100);
+    margin-bottom: .5rem;
+  }
+  .not-found__title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: .75rem;
+  }
+  .not-found__text {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    font-size: .95rem;
+  }
+  .not-found__actions {
+    display: flex;
+    gap: .75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .not-found__links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .not-found__links a {
+    font-size: .875rem;
+    color: var(--color-text-muted);
+  }
+  .not-found__links a:hover { color: var(--color-primary); }
+</style>

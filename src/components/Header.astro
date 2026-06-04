@@ -1,39 +1,66 @@
 ---
 import HeaderBanner from './ads/HeaderBanner.astro';
+
+const path = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return path === '/';
+  return path.startsWith(href);
+}
+
+const navItems = [
+  { href: '/',                      label: 'Startseite'        },
+  { href: '/beste-reward-apps-2026', label: 'Beste Reward Apps' },
+  { href: '/reviews',                label: 'Reviews'           },
+  { href: '/wie-wir-testen',         label: 'Wie wir testen'    },
+  { href: '/ueber-uns',              label: 'Über uns'          },
+];
 ---
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="site-logo" aria-label="CashKompass – Startseite">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <a href="/" class="site-logo" aria-label="CashKompass – zur Startseite">
+      <!-- Kompassnadel-Icon -->
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="32" height="32">
         <circle cx="16" cy="16" r="14" stroke="#0F2A4A" stroke-width="1.5" opacity="0.25"/>
         <circle cx="16" cy="16" r="10" stroke="#0F2A4A" stroke-width="1" opacity="0.12"/>
         <path d="M16 3 L18.5 16 L16 13.5 L13.5 16 Z" fill="#F5A623"/>
         <path d="M16 29 L13.5 16 L16 18.5 L18.5 16 Z" fill="#0F2A4A" opacity="0.7"/>
         <circle cx="16" cy="16" r="2.5" fill="#0F2A4A"/>
         <circle cx="16" cy="16" r="1.2" fill="#F5A623"/>
-        <line x1="16" y1="2" x2="16" y2="5.5" stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
-        <line x1="16" y1="26.5" x2="16" y2="30" stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
-        <line x1="2" y1="16" x2="5.5" y2="16" stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
-        <line x1="26.5" y1="16" x2="30" y2="16" stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
+        <line x1="16" y1="2"    x2="16"   y2="5.5"  stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
+        <line x1="16" y1="26.5" x2="16"   y2="30"   stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
+        <line x1="2"  y1="16"   x2="5.5"  y2="16"   stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
+        <line x1="26.5" y1="16" x2="30"   y2="16"   stroke="#0F2A4A" stroke-width="1.5" opacity="0.3"/>
       </svg>
       Cash<span class="logo-accent">Kompass</span>
     </a>
 
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
+    <button
+      class="nav-toggle"
+      aria-label="Navigationsmenü öffnen"
+      aria-expanded="false"
+      aria-controls="main-nav"
+    >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="6"  x2="21" y2="6"/>
         <line x1="3" y1="12" x2="21" y2="12"/>
         <line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
     </button>
 
-    <nav>
+    <nav aria-label="Hauptnavigation">
       <ul class="site-nav" id="main-nav" role="list">
-        <li><a href="/">Startseite</a></li>
-        <li><a href="/reviews">Reviews</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/ueber-uns">Über uns</a></li>
+        {navItems.map(item => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>
@@ -44,10 +71,20 @@ import HeaderBanner from './ads/HeaderBanner.astro';
 </header>
 
 <script>
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.site-nav');
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav    = document.querySelector<HTMLElement>('.site-nav');
+
   toggle?.addEventListener('click', () => {
-    const open = nav?.classList.toggle('open');
+    const open = nav?.classList.toggle('open') ?? false;
     toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Navigationsmenü schließen' : 'Navigationsmenü öffnen');
+  });
+
+  // Menü bei Klick auf Navlink schließen (Mobile)
+  nav?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    });
   });
 </script>
